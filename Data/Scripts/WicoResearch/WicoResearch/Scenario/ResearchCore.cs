@@ -20,7 +20,7 @@ namespace WicoResearch
         // https://steamcommunity.com/sharedfiles/filedetails/?id=1803307275
 
         // Current mod version, increased each time before workshop publish
-        private const int CurrentModVersion = 1;
+        private const int CurrentModVersion = 2;
 
 		private ResearchControl researchControl;
         private ResearchHacking researchHacking;
