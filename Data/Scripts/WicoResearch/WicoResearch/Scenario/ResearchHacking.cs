@@ -177,8 +177,8 @@ namespace WicoResearch
 		{
             //GPS:toddlerself #1:53569.19:-26676.81:11932.84:
             //GPS:toddlerself #2:53558.6:-26668.48:11986.06:
-            AddHackingLocation(TechGroup.LgLightArmor, new Vector3D(53569.19, -26676.81, 11932.84));
-            AddHackingLocation(TechGroup.AtmosphericEngines, new Vector3D(53558.6, -26668.48, 11986.06));
+//            AddHackingLocation(TechGroup.LgLightArmor, new Vector3D(53569.19, -26676.81, 11932.84));
+//            AddHackingLocation(TechGroup.AtmosphericEngines, new Vector3D(53558.6, -26668.48, 11986.06));
 
             /*
 			AddHackingLocation(TechGroup.AtmosphericEngines, new Vector3D(1854774.5,-2005846.88,1325410.5));
