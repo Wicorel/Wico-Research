@@ -176,8 +176,9 @@ namespace Duckroll
         {
             foreach (var entity in queueAddedEntities)
             {
-                if (entity is IMyCubeGrid grid)
+                if (entity is IMyCubeGrid)
                 {
+                    var grid = entity as IMyCubeGrid;
                     //                ModLog.Info("Added Grid:" + grid.CustomName);
                     if (grid.Physics != null)
                     {
