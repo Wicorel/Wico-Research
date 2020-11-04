@@ -49,12 +49,14 @@ namespace WicoResearch
         {
             public int techGroup;
             public Vector3D location;
-            // int unlockradiusSQ;
+            public double unlockradius;
         }
         List<UnlockLocation> unlockLocationList = new List<UnlockLocation>();
 
         public override void GridInitialising(IMyCubeGrid grid)
         {
+            // check all loading grids and check for research control
+
 //            ModLog.Info("Checking grid: " + grid.CustomName);
 
             // TODO: Limit to certain owners?  
@@ -75,6 +77,8 @@ namespace WicoResearch
                 if (data.Contains("[WICORESEARCH]"))
                 {
                     int techgroup = -1;
+                    double researchrange = 5;
+
                     Vector3D location = tb.GetPosition();
                     //                    ModLog.Info("Found our section");
                     // get an array of the all of lines
@@ -116,6 +120,20 @@ namespace WicoResearch
                                             ModLog.Info("group parse fail");
                                         }
                                     }
+                                    if (aKeyValue[0] == "Range")
+                                    {
+                                        //                                        ModLog.Info("Found Group:"+aLines[iSectionLine]);
+                                        double dTest;
+                                        bool bOK = double.TryParse(aKeyValue[1], out dTest);
+                                        if (bOK)
+                                        {
+                                            researchrange = dTest;
+                                        }
+                                        else
+                                        {
+                                            ModLog.Info("group parse fail");
+                                        }
+                                    }
                                     if (aKeyValue[0] == "Location")
                                     {
                                         Vector3D testLocation;
@@ -134,6 +152,8 @@ namespace WicoResearch
                                 UnlockLocation ul=new UnlockLocation();
                                 ul.location = location;
                                 ul.techGroup = techgroup;
+                                ul.unlockradius = researchrange;
+
 //                                ModLog.Info("Adding research unlock from: " + pb.CustomName);
                                 unlockLocationList.Add(ul);
                             }
@@ -149,7 +169,7 @@ namespace WicoResearch
             ModLog.Info("Found " + unlockLocationList.Count().ToString() + " Unlock locations");
             foreach( var unlockLocation in unlockLocationList)
             {
-                AddHackingLocation((TechGroup)unlockLocation.techGroup, unlockLocation.location);
+                AddHackingLocation((TechGroup)unlockLocation.techGroup, unlockLocation.location, unlockLocation.unlockradius);
 
                 if (researchControl.bDebugLocations)
                 {
@@ -170,7 +190,6 @@ namespace WicoResearch
                     DuckUtils.AddGpsToAllPlayers(name, "Unlock location", unlockLocation.Coords);
                 }
             }
-
         }
 
         internal void InitHackingLocations()
@@ -180,22 +199,13 @@ namespace WicoResearch
 //            AddHackingLocation(TechGroup.LgLightArmor, new Vector3D(53569.19, -26676.81, 11932.84));
 //            AddHackingLocation(TechGroup.AtmosphericEngines, new Vector3D(53558.6, -26668.48, 11986.06));
 
-            /*
-			AddHackingLocation(TechGroup.AtmosphericEngines, new Vector3D(1854774.5,-2005846.88,1325410.5));
-			AddHackingLocation(TechGroup.GasStorage, new Vector3D(1869167.75,-2004920.12,1316376.38));
-			AddHackingLocation(TechGroup.Rockets, new Vector3D(1843300.12,-1996436.5,1324474.12));
-			AddHackingLocation(TechGroup.OxygenFarm, new Vector3D(1851936.75,-2001115.25,1324439.75));
-            AddHackingLocation(TechGroup.OxygenGenerators, new Vector3D(1869136.62, -2004926.38, 1316339.62));
-
-            AddHackingLocation(TechGroup.BasicWeapons, new Vector3D(1868130.53, -2003476.19, 1316621.55));
-            */
         }
 
-        private void AddHackingLocation(TechGroup techGroup, Vector3D coords)
+        private void AddHackingLocation(TechGroup techGroup, Vector3D coords, double researchrange=5)
 		{
 			if (!researchControl.UnlockedTechs.Contains(techGroup))
 			{
-				hackingLocations.Add(new HackingLocation(techGroup, coords));
+				hackingLocations.Add(new HackingLocation(techGroup, coords, researchrange));
 			}
 		}
 
@@ -225,7 +235,7 @@ namespace WicoResearch
 				{
 					var distSq = Vector3D.DistanceSquared(hack.Coords, position);
 
-					if (distSq <= HackingRangeSquared)
+					if (distSq <= hack.ResearchRangeSq) //HackingRangeSquared)
 					{
                         if (!wasHackingLastUpdate)
                         {
@@ -305,7 +315,7 @@ namespace WicoResearch
                 if (hackBarV2 == null || bForce)
                 {
 //                    ModLog.Info("Creating Hacking HUD");
-                    if(sbHackBarMessage==null) sbHackBarMessage = new StringBuilder("Initial Hack Bar");
+                    if(sbHackBarMessage==null) sbHackBarMessage = new StringBuilder("Initial Research Bar");
                     hackBarV2 = new HudAPIv2.HUDMessage(sbHackBarMessage, new Vector2D(-0.5, 0.5));
                     if (hackBarV2 != null)
                     {
@@ -316,7 +326,7 @@ namespace WicoResearch
                         hackBarV2.Visible = false;
 //                        hackBarV2.TimeToLive = 45;
                     }
-                    else ModLog.Info("Could not create Hacking HUD");
+                    else ModLog.Info("Could not create Research HUD");
                 }
             }
             else ModLog.Info("NO TextHud HEARTBEAT");
@@ -326,7 +336,7 @@ namespace WicoResearch
 		{
 
            audioSystem.EnsurePlaying(AudioClip.HackingSound);
-			var hackbarStr = SeTextColor + "Hack in progress: ";
+			var hackbarStr = SeTextColor + "Research in progress: ";
 			var percent = ticks * 100 / HackingBarTicks;
 			hackbarStr += percent + "%\n\n";
 			for (var i = 0; i < ticks; i++)
@@ -372,21 +382,6 @@ namespace WicoResearch
             if (hackInterruptedV2 != null) hackInterruptedV2.Visible = true;
         }
 
-        //		private void SendToHud(HUDTextAPI.HUDMessage hudMessage)
-        private void SendToHud(HudAPIv2.HUDMessage hudMessage)
-        {
-            if (TextAPI.Heartbeat)
-// V1			if (hudTextApi.Heartbeat)
-			{
-
-//				hudTextApi.Send(hudMessage);
-			}
-			else
-			{
-				MyAPIGateway.Utilities.ShowNotification("Error: You need to install the Text HUD API Mod!", 300, MyFontEnum.Red);
-			}
-		}
-
 		internal List<HackingSaveData> GetSaveData()
 		{
 			var saveData = new List<HackingSaveData>();
@@ -394,10 +389,12 @@ namespace WicoResearch
 			{
 				if (hackingLocation.CompletionTicks > 0)
 				{
-					saveData.Add(new HackingSaveData {
-						Completion = hackingLocation.CompletionTicks, TechGroup 
-						= hackingLocation.TechGroup
-					});
+					saveData.Add(new HackingSaveData
+                        {
+						    Completion = hackingLocation.CompletionTicks,
+                            TechGroup  = hackingLocation.TechGroup
+					    }
+                    );
 				}
 			}
 
@@ -427,11 +424,13 @@ namespace WicoResearch
 			internal readonly TechGroup TechGroup;
 			internal readonly Vector3D Coords;
 			internal int CompletionTicks;
+            internal double ResearchRangeSq;
 
-			public HackingLocation(TechGroup techGroup, Vector3D coords)
+			public HackingLocation(TechGroup techGroup, Vector3D coords, double researchrange=5)
 			{
 				TechGroup = techGroup;
 				Coords = coords;
+                ResearchRangeSq = researchrange * researchrange;
 			}
 		}
 

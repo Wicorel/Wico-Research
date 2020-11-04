@@ -12,20 +12,88 @@ namespace WicoResearch
         readonly bool bNewResearch = true;
         public readonly bool bDebugLocations = false;
 
+        private readonly MyDefinitionId SpaceBallLarge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_SpaceBall", "SpaceBallLarge");
+        private readonly MyDefinitionId SpaceBallSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_SpaceBall", "SpaceBallSmall");
+
+        private readonly MyDefinitionId VirtualMassLarge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_VirtualMass", "VirtualMassLarge");
+        private readonly MyDefinitionId VirtualMassSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_VirtualMass", "VirtualMassSmall");
+
+        private readonly MyDefinitionId GravityGenerator = MyVisualScriptLogicProvider.GetDefinitionId(
+           "MyObjectBuilder_GravityGenerator", "");
+        private readonly MyDefinitionId GravityGeneratorSphere = MyVisualScriptLogicProvider.GetDefinitionId(
+           "MyObjectBuilder_GravityGeneratorSphere", "");
+
+        private readonly MyDefinitionId LargeProgrammableBlock = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_MyProgrammableBlock", "LargeProgrammableBlock");
+
+
+        private readonly MyDefinitionId LargeCameraBlock = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_CameraBlock", "LargeCameraBlock");
+        private readonly MyDefinitionId SmallCameraBlock = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_CameraBlock", "SmallCameraBlock");
+
+        private readonly MyDefinitionId LargeBlockSensor = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_SensorBlock", "LargeBlockSensor");
+        private readonly MyDefinitionId SmallBlockSensor = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_SensorBlock", "SmallBlockSensor");
+        
+            private readonly MyDefinitionId LargeBlockGyro = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Gyro", "LargeBlockGyro");
+        private readonly MyDefinitionId SmallBlockGyro = MyVisualScriptLogicProvider.GetDefinitionId(
+        "MyObjectBuilder_Gyro", "SmallBlockGyro");
+
+        private readonly MyDefinitionId LargeBlockSolarPanel = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SolarPanel", "LargeBlockSolarPanel");
+        private readonly MyDefinitionId SmallBlockSolarPanel = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SolarPanel", "SmallBlockSolarPanel");
+
+        private readonly MyDefinitionId LargeBlockLargeGenerator = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Reactor", "LargeBlockLargeGenerator");
+        private readonly MyDefinitionId LargeBlockSmallGenerator = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_Reactor", "LargeBlockSmallGenerator");
+        private readonly MyDefinitionId SmallBlockSmallGenerator = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_Reactor", "SmallBlockSmallGenerator");
+        private readonly MyDefinitionId SmallBlockLargeGenerator = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_Reactor", "SmallBlockLargeGenerator");
+
+        private readonly MyDefinitionId SmallBlockBatteryBlock = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_BatteryBlock", "SmallBlockBatteryBlock");
+        private readonly MyDefinitionId LargeBlockBatteryBlock = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_BatteryBlock", "LargeBlockBatteryBlock");
+
+        private readonly MyDefinitionId LargeBlockRadioAntennaDish = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_RadioAntenna", "LargeBlockRadioAntennaDish");
+
+        private readonly MyDefinitionId LargeBlockBeacon = MyVisualScriptLogicProvider.GetDefinitionId(
+         "MyObjectBuilder_Beacon", "LargeBlockBeacon");
+        private readonly MyDefinitionId SmallBlockBeacon = MyVisualScriptLogicProvider.GetDefinitionId(
+         "MyObjectBuilder_Beacon", "SmallBlockBeacon");
+
+        private readonly MyDefinitionId LargeBlockLaserAntenna = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_LaserAntenna", "LargeBlockLaserAntenna");
+        private readonly MyDefinitionId SmallBlockLaserAntenna = MyVisualScriptLogicProvider.GetDefinitionId(
+             "MyObjectBuilder_LaserAntenna", "SmallBlockLaserAntenna");
+
+        
+        // Start of original list
         private readonly MyDefinitionId refinery = MyVisualScriptLogicProvider.GetDefinitionId(
-            "Refinery", "LargeRefinery");
+            "MyObjectBuilder_Refinery", "LargeRefinery");
 
         private readonly MyDefinitionId blastFurnace = MyVisualScriptLogicProvider.GetDefinitionId(
-            "Refinery", "Blast Furnace");
+            "MyObjectBuilder_Refinery", "Blast Furnace");
 
         private readonly MyDefinitionId jumpDrive = MyVisualScriptLogicProvider.GetDefinitionId(
-            "JumpDrive", "LargeJumpDrive");
+            "MyObjectBuilder_JumpDrive", "LargeJumpDrive");
 
         private readonly MyDefinitionId radioAntennaLarge = MyVisualScriptLogicProvider.GetDefinitionId(
-            "RadioAntenna", "LargeBlockRadioAntenna");
+            "MyObjectBuilder_RadioAntenna", "LargeBlockRadioAntenna");
 
         private readonly MyDefinitionId radioAntennaSmall = MyVisualScriptLogicProvider.GetDefinitionId(
-            "RadioAntenna", "SmallBlockRadioAntenna");
+            "MyObjectBuilder_RadioAntenna", "SmallBlockRadioAntenna");
 
         private readonly MyDefinitionId largeMissileTurret = MyVisualScriptLogicProvider.GetDefinitionId(
             "LargeMissileTurret", null);
@@ -417,6 +485,245 @@ namespace WicoResearch
         private readonly MyDefinitionId ContractBlock = MyVisualScriptLogicProvider.GetDefinitionId(
             "MyObjectBuilder_ContractBlock", "ContractBlock");
 
+        //V1.193
+
+
+        /*TyepID=MyObjectBuilder_VendingMachine
+        SubtyepID=FoodDispenser
+        */
+        private readonly MyDefinitionId FoodDispenser = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_VendingMachine", "FoodDispenser");
+
+        /*TyepID=MyObjectBuilder_Cockpit    
+SubtyepID=OpenCockpitSmall
+*/
+        private readonly MyDefinitionId OpenCockpitSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Cockpit", "OpenCockpitSmall");
+
+        /*TyepID=MyObjectBuilder_Cockpit
+SubtyepID=OpenCockpitLarge
+*/
+        private readonly MyDefinitionId OpenCockpitLarge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Cockpit", "OpenCockpitLarge");
+
+        /*TyepID=MyObjectBuilder_TextPanel
+SubtyepID=TransparentLCDSmall*/
+        private readonly MyDefinitionId TransparentLCDSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_TextPanel", "TransparentLCDSmall");
+
+        /*TyepID=MyObjectBuilder_ReflectorLight
+SubtyepID=RotatingLightSmall*/
+        private readonly MyDefinitionId RotatingLightSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_ReflectorLight", "RotatingLightSmall");
+
+
+        /*TyepID=MyObjectBuilder_LCDPanelsBlock
+SubtyepID=LabEquipment*/
+        private readonly MyDefinitionId LabEquipment = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_LCDPanelsBlock", "LabEquipment");
+
+        /*TyepID=MyObjectBuilder_TextPanel
+SubtyepID=TransparentLCDLarge*/
+        private readonly MyDefinitionId TransparentLCDLarge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_TextPanel", "TransparentLCDLarge");
+
+        /*TyepID=MyObjectBuilder_ReflectorLight
+SubtyepID=RotatingLightLarge*/
+        private readonly MyDefinitionId RotatingLightLarge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_ReflectorLight", "RotatingLightLarge");
+
+        /*TyepID=MyObjectBuilder_LCDPanelsBlock
+SubtyepID=MedicalStation*/
+        private readonly MyDefinitionId MedicalStation = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_LCDPanelsBlock", "MedicalStation");
+
+        /*TyepID=MyObjectBuilder_Jukebox
+SubtyepID=Jukebox*/
+        private readonly MyDefinitionId Jukebox = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Jukebox", "Jukebox");
+
+
+        // V1.194
+        /* TyepID=MyObjectBuilder_OxygenTank
+SubtyepID=LargeHydrogenTankSmall */
+        private readonly MyDefinitionId LargeHydrogenTankSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_OxygenTank", "LargeHydrogenTankSmall");
+
+        /* TyepID=MyObjectBuilder_OxygenTank
+SubtyepID=SmallHydrogenTankSmall
+*/
+        private readonly MyDefinitionId SmallHydrogenTankSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_OxygenTank", "SmallHydrogenTankSmall");
+
+        // V1.192
+
+        /*TyepID=MyObjectBuilder_VendingMachine
+        SubtyepID=VendingMachine
+        */
+        private readonly MyDefinitionId VendingMachine = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_VendingMachine", "VendingMachine");
+
+        /*TyepID=MyObjectBuilder_StoreBlock
+        SubtyepID=AtmBlock
+        */
+        private readonly MyDefinitionId AtmBlock = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_StoreBlock", "AtmBlock");
+
+
+        // V1.195
+        /* SG 
+         * Sc-fi sliding door
+         * TyepID=MyObjectBuilder_Door
+        SubtyepID=SmallSideDoor
+        */
+        private readonly MyDefinitionId SmallSideDoor = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Door", "SmallSideDoor");
+        /* SG medium hinge
+         * TyepID=MyObjectBuilder_MotorAdvancedStator
+        SubtyepID = MediumHinge
+        */
+        private readonly MyDefinitionId MediumHinge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_MotorAdvancedStator", "MediumHinge");
+
+
+        /* SG Small hinge
+         * TyepID=MyObjectBuilder_MotorAdvancedStator
+        SubtyepID=SmallHinge
+        */
+        private readonly MyDefinitionId SmallHinge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_MotorAdvancedStator", "SmallHinge");
+
+        /* Small hinge head
+         * TyepID=MyObjectBuilder_MotorStator
+        SubtyepID=SmallStator
+        */
+        private readonly MyDefinitionId SmallStator = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_MotorStator", "SmallStator");
+
+        // Sparks of the Future DLC
+
+        /* SG
+         * Sci-Fi Ion Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=SmallBlockSmallThrustSciFi
+        */
+        private readonly MyDefinitionId SmallBlockSmallThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "SmallBlockSmallThrustSciFi");
+
+
+        /* SG
+         * Sci-Fi Large Ion Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=SmallBlockLargeThrustSciFi
+        */
+        private readonly MyDefinitionId SmallBlockLargeThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "SmallBlockLargeThrustSciFi");
+
+        /* SG
+         * Sci-Fi Atmospheric Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=SmallBlockSmallAtmosphericThrustSciFi
+        */
+        private readonly MyDefinitionId SmallBlockSmallAtmosphericThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "SmallBlockSmallAtmosphericThrustSciFi");
+
+        /*
+         * SG
+         * Sci-Fi Large Atmospheric Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=SmallBlockLargeAtmosphericThrustSciFi
+        */
+        private readonly MyDefinitionId SmallBlockLargeAtmosphericThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "SmallBlockLargeAtmosphericThrustSciFi");
+
+
+        /* LG
+         * Hinge
+        TyepID=MyObjectBuilder_MotorAdvancedStator
+        SubtyepID=LargeHinge
+        */
+        private readonly MyDefinitionId LargeHinge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_MotorAdvancedStator", "LargeHinge");
+
+
+        /* LG
+         * Sci-Fi Terminal Panel
+        TyepID=MyObjectBuilder_TerminalBlock
+        SubtyepID=LargeBlockSciFiTerminal
+        */
+        private readonly MyDefinitionId LargeBlockSciFiTerminal = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_TerminalBlock", "LargeBlockSciFiTerminal");
+
+        /* LG
+         * Sci-Fi One-Button Terminal
+        TyepID=MyObjectBuilder_ButtonPanel
+        SubtyepID=LargeSciFiButtonTerminal
+        */
+        private readonly MyDefinitionId LargeSciFiButtonTerminal = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_ButtonPanel", "LargeSciFiButtonTerminal");
+
+        /* LG
+         * Sci-Fi Four-Button Panel
+        TyepID=MyObjectBuilder_ButtonPanel
+        SubtyepID=LargeSciFiButtonPanel
+        (4 surfaces)
+        */
+        private readonly MyDefinitionId LargeSciFiButtonPanel = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_ButtonPanel", "LargeSciFiButtonPanel");
+
+        /* LG
+         * Sci-Fi Large Ion Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=LargeBlockLargeThrustSciFi
+        */
+        private readonly MyDefinitionId LargeBlockLargeThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "LargeBlockLargeThrustSciFi");
+
+
+        /* LG 
+         * Sci-Fi Ion Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=LargeBlockSmallThrustSciFi
+        */
+        private readonly MyDefinitionId LargeBlockSmallThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "LargeBlockSmallThrustSciFi");
+
+
+        /* LG
+         * Sci-Fi Large Atmospheric Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=LargeBlockLargeAtmosphericThrustSciFi
+        */
+        private readonly MyDefinitionId LargeBlockLargeAtmosphericThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "LargeBlockLargeAtmosphericThrustSciFi");
+
+        /* LG
+         * Sci-Fi Atmospheric Thruster
+        TyepID=MyObjectBuilder_Thrust
+        SubtyepID=LargeBlockSmallAtmosphericThrustSciFi
+        */
+        private readonly MyDefinitionId LargeBlockSmallAtmosphericThrustSciFi = MyVisualScriptLogicProvider.GetDefinitionId(
+            "MyObjectBuilder_Thrust", "LargeBlockSmallAtmosphericThrustSciFi");
+
+
+        /* LG
+         * Sci-Fi LCD Panel 3x3
+        TyepID=MyObjectBuilder_TextPanel
+        SubtyepID=LargeLCDPanel3x3
+        */
+
+        /* LG
+         * Sci-Fi LCD Panel 5x3
+        TyepID=MyObjectBuilder_TextPanel
+        SubtyepID=LargeLCDPanel5x3
+        */
+
+        /* LG
+         * Sci-Fi LCD Panel 5x5
+        TyepID=MyObjectBuilder_TextPanel
+        SubtyepID=LargeLCDPanel5x5
+        */
+
         private readonly Dictionary<TechGroup, HashSet<MyDefinitionId>> techsForGroup =
         new Dictionary<TechGroup, HashSet<MyDefinitionId>>();
 
@@ -442,25 +749,47 @@ namespace WicoResearch
             NeedsResearch(largeRocketLauncher, TechGroup.Rockets);
             NeedsResearch(smallReloadableRocketLauncher, TechGroup.Rockets);
 
+            NeedsResearch(atmoThrusterSmallShipSmall, TechGroup.AtmoThrusters);
+            NeedsResearch(atmoThrusterSmallShipLarge, TechGroup.AtmoThrusters);
+            NeedsResearch(atmoThrusterLargeShipSmall, TechGroup.AtmoThrusters);
+            NeedsResearch(atmoThrusterLargeShipLarge, TechGroup.AtmoThrusters);
 
-            NeedsResearch(atmoThrusterSmallShipSmall, TechGroup.AtmosphericEngines);
-            NeedsResearch(atmoThrusterSmallShipLarge, TechGroup.AtmosphericEngines);
-            NeedsResearch(atmoThrusterLargeShipSmall, TechGroup.AtmosphericEngines);
-            NeedsResearch(atmoThrusterLargeShipLarge, TechGroup.AtmosphericEngines);
-            NeedsResearch(WindTurbineLarge, TechGroup.AtmosphericEngines);
+            // V1.195 DLC
+            NeedsResearch(SmallBlockSmallAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+            NeedsResearch(SmallBlockLargeAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+            NeedsResearch(LargeBlockSmallAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+            NeedsResearch(LargeBlockLargeAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+
+            // Power
+            NeedsResearch(WindTurbineLarge, TechGroup.WindTurbines); // 1.194
+
+            NeedsResearch(LargeBlockSolarPanel, TechGroup.SolarPanels);
+            NeedsResearch(SmallBlockSolarPanel, TechGroup.SolarPanels);
+
+            NeedsResearch(SmallBattery, TechGroup.Batteries);
+            NeedsResearch(SmallBlockBatteryBlock, TechGroup.Batteries);
+            NeedsResearch(LargeBlockBatteryBlock, TechGroup.Batteries);
+
+            NeedsResearch(LargeBlockLargeGenerator, TechGroup.LargeReactors);
+            NeedsResearch(LargeBlockSmallGenerator, TechGroup.SmallReactors);
+            NeedsResearch(SmallBlockSmallGenerator, TechGroup.SmallReactors);
+            NeedsResearch(SmallBlockLargeGenerator, TechGroup.LargeReactors);
+
+            NeedsResearch(EngineLarge, TechGroup.HydrogenEngines);
+            NeedsResearch(EngineSmall, TechGroup.HydrogenEngines);
 
             NeedsResearch(oxygenFarm, TechGroup.OxygenFarm);
 
             NeedsResearch(oxygenGeneratorLarge, TechGroup.OxygenGenerators);
             NeedsResearch(oxygenGeneratorSmall, TechGroup.OxygenGenerators);
 
-            NeedsResearch(oxygenTankLarge, TechGroup.GasStorage);
-            NeedsResearch(oxygenTankSmall, TechGroup.GasStorage);
-            NeedsResearch(hydrogenTankLarge, TechGroup.GasStorage);
-            NeedsResearch(hydrogenTankSmall, TechGroup.GasStorage);
-            NeedsResearch(EngineLarge, TechGroup.GasStorage);
-            NeedsResearch(EngineSmall, TechGroup.GasStorage);
+            NeedsResearch(oxygenTankLarge, TechGroup.OxygenStorage);
+            NeedsResearch(oxygenTankSmall, TechGroup.OxygenStorage);
 
+            NeedsResearch(hydrogenTankLarge, TechGroup.HydrogenStorage);
+            NeedsResearch(hydrogenTankSmall, TechGroup.HydrogenStorage);
+            NeedsResearch(LargeHydrogenTankSmall, TechGroup.HydrogenStorage);// 1.194
+            NeedsResearch(SmallHydrogenTankSmall, TechGroup.HydrogenStorage);// 1.194
 
             NeedsResearch(SmallGatlingTurret, TechGroup.BasicWeapons);
             NeedsResearch(SmallRocketLauncherReload, TechGroup.BasicWeapons);
@@ -483,30 +812,76 @@ namespace WicoResearch
             NeedsResearch(LargeHeavyHalfArmorBlock, TechGroup.LgHeavyArmor);
             NeedsResearch(LargeHeavyHalfSlopeArmorBlock, TechGroup.LgHeavyArmor);
 
+            NeedsResearch(ionThrusterSmallShipSmall, TechGroup.IonThrusters);
+            NeedsResearch(ionThrusterSmallShipLarge, TechGroup.IonThrusters);
+            NeedsResearch(ionThrusterLargeShipSmall, TechGroup.IonThrusters);
+            NeedsResearch(ionThrusterLargeShipLarge, TechGroup.IonThrusters);
 
-            NeedsResearch(ionThrusterSmallShipSmall, TechGroup.Permabanned);
-            NeedsResearch(ionThrusterSmallShipLarge, TechGroup.Permabanned);
-            NeedsResearch(ionThrusterLargeShipSmall, TechGroup.Permabanned);
-            NeedsResearch(ionThrusterLargeShipLarge, TechGroup.Permabanned);
-            NeedsResearch(hydroThrusterSmallShipSmall, TechGroup.Permabanned);
-            NeedsResearch(hydroThrusterSmallShipLarge, TechGroup.Permabanned);
-            NeedsResearch(hydroThrusterLargeShipSmall, TechGroup.Permabanned);
-            NeedsResearch(hydroThrusterLargeShipLarge, TechGroup.Permabanned);
+            NeedsResearch(hydroThrusterSmallShipSmall, TechGroup.HydrogenThrusters);
+            NeedsResearch(hydroThrusterSmallShipLarge, TechGroup.HydrogenThrusters);
+            NeedsResearch(hydroThrusterLargeShipSmall, TechGroup.HydrogenThrusters);
+            NeedsResearch(hydroThrusterLargeShipLarge, TechGroup.HydrogenThrusters);
 
-            NeedsResearch(refinery, TechGroup.Permabanned);
-            NeedsResearch(blastFurnace, TechGroup.Permabanned);
-            NeedsResearch(blastFurnace, TechGroup.Permabanned);
-            NeedsResearch(jumpDrive, TechGroup.Permabanned);
-            NeedsResearch(projectorLarge, TechGroup.Permabanned);
-            NeedsResearch(projectorSmall, TechGroup.Permabanned);
+            NeedsResearch(refinery, TechGroup.AdvancedRefineries);
+            NeedsResearch(blastFurnace, TechGroup.BasicRefineries);
+            NeedsResearch(BasicAssembler, TechGroup.BasicAssemblers);
 
-            NeedsResearch(SkLarge, TechGroup.Permabanned);
-            NeedsResearch(SkSmall, TechGroup.Permabanned);
-            NeedsResearch(BasicAssembler, TechGroup.Permabanned);
+            NeedsResearch(jumpDrive, TechGroup.JumpDrives);
 
-            NeedsResearch(SafeZoneBlock, TechGroup.Permabanned);
-            NeedsResearch(StoreBlock, TechGroup.Permabanned);
-            NeedsResearch(ContractBlock, TechGroup.Permabanned);
+            NeedsResearch(projectorLarge, TechGroup.Projectors);
+            NeedsResearch(projectorSmall, TechGroup.Projectors);
+
+            NeedsResearch(SkLarge, TechGroup.SurvivalKit);
+            NeedsResearch(SkSmall, TechGroup.SurvivalKit);
+
+            NeedsResearch(LargeBlockGyro, TechGroup.Gyros);
+            NeedsResearch(SmallBlockGyro, TechGroup.Gyros);
+
+            // detection
+            NeedsResearch(radioAntennaLarge, TechGroup.RadioAntennas);
+            NeedsResearch(radioAntennaSmall, TechGroup.RadioAntennas);
+            NeedsResearch(LargeBlockRadioAntennaDish, TechGroup.RadioAntennas);
+
+            NeedsResearch(LargeBlockLaserAntenna, TechGroup.LaserAntennas);
+            NeedsResearch(SmallBlockLaserAntenna, TechGroup.LaserAntennas);
+
+            NeedsResearch(LargeBlockBeacon, TechGroup.Beacons);
+            NeedsResearch(SmallBlockBeacon, TechGroup.Beacons);
+
+            NeedsResearch(LargeBlockSensor, TechGroup.Sensors);
+            NeedsResearch(SmallBlockSensor, TechGroup.Sensors);
+            NeedsResearch(LargeCameraBlock, TechGroup.Cameras);
+            NeedsResearch(SmallCameraBlock, TechGroup.Cameras);
+
+            // gravity
+            NeedsResearch(GravityGenerator, TechGroup.GravityGens);
+            NeedsResearch(GravityGeneratorSphere, TechGroup.GravityGens);
+
+            NeedsResearch(SpaceBallLarge, TechGroup.ArtificialMass);
+            NeedsResearch(SpaceBallSmall, TechGroup.ArtificialMass);
+            NeedsResearch(VirtualMassLarge, TechGroup.ArtificialMass);
+            NeedsResearch(VirtualMassSmall, TechGroup.ArtificialMass);
+
+            // Programmable Block
+            NeedsResearch(LargeProgrammableBlock, TechGroup.ProgrammableBlock);
+
+            // V1.192
+            NeedsResearch(SafeZoneBlock, TechGroup.SafeZone);
+            NeedsResearch(StoreBlock, TechGroup.Economy);
+            NeedsResearch(ContractBlock, TechGroup.Economy);
+
+            // SE 1.192 Economy DLC
+            NeedsResearch(VendingMachine, TechGroup.Economy);
+            NeedsResearch(AtmBlock, TechGroup.Economy);
+
+            // V1.193
+            NeedsResearch(FoodDispenser, TechGroup.Economy);
+
+            // V1.195 DLC
+            NeedsResearch(SmallBlockSmallThrustSciFi, TechGroup.IonThrusters);
+            NeedsResearch(SmallBlockLargeThrustSciFi, TechGroup.IonThrusters);
+            NeedsResearch(LargeBlockSmallThrustSciFi, TechGroup.IonThrusters);
+            NeedsResearch(LargeBlockLargeThrustSciFi, TechGroup.IonThrusters);
 
         }
         public void AllowUnlockedTechs()
@@ -602,7 +977,7 @@ namespace WicoResearch
             {
                 case TechGroup.Permabanned:
                     return AudioClip.AllTechUnlocked;
-                case TechGroup.AtmosphericEngines:
+                case TechGroup.AtmoThrusters:
                     return AudioClip.UnlockAtmospherics;
                 case TechGroup.Rockets:
                     return AudioClip.UnlockedMissiles;
@@ -610,7 +985,9 @@ namespace WicoResearch
                     return AudioClip.OxygenGeneratorUnlocked;
                 case TechGroup.OxygenFarm:
                     return AudioClip.OxygenFarmUnlocked;
-                case TechGroup.GasStorage:
+                case TechGroup.OxygenStorage:
+                    return AudioClip.GasStorageUnlocked;
+                case TechGroup.HydrogenStorage:
                     return AudioClip.GasStorageUnlocked;
                 case TechGroup.BasicWeapons:
                     return AudioClip.BasicWeaponsUnlocked;
@@ -626,7 +1003,7 @@ namespace WicoResearch
                 var technologies = techsForGroup[techGroup];
                 if (technologies == null)
                 {
-                    ModLog.Error("No technologies for group: " + techGroup);
+                    ModLog.Info("No technologies for group: " + techGroup);
                     return;
                 }
 
