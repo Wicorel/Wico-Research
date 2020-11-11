@@ -76,8 +76,15 @@ namespace WicoResearch
         SgHeavyArmor,
         LgLightArmor,
         LgHeavyArmor,
-        
 
-		Permabanned=9999 // Leave as last!
+        // MOD (2020 Update!) Star Wars Weapons https://steamcommunity.com/sharedfiles/filedetails/?id=598138548
+        StarWarsWeapons=9000,
+        // MOD: Defense Shields - v1.91(3) https://steamcommunity.com/sharedfiles/filedetails/?id=1365616918
+        DefenseShields,
+        // Energy Shields. https://steamcommunity.com/sharedfiles/filedetails/?id=484504816
+        EnergyShields,
+
+        Permabanned = 9999 // Leave as last!
 	}
 }
+ 

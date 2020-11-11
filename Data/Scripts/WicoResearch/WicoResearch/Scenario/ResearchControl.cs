@@ -11,6 +11,8 @@ namespace WicoResearch
     {
         readonly bool bNewResearch = true;
         public readonly bool bDebugLocations = false;
+        public readonly bool bVanillaBlocks = false;
+
 
         private readonly MyDefinitionId SpaceBallLarge = MyVisualScriptLogicProvider.GetDefinitionId(
             "MyObjectBuilder_SpaceBall", "SpaceBallLarge");
@@ -724,17 +726,749 @@ SubtyepID=SmallHydrogenTankSmall
         SubtyepID=LargeLCDPanel5x5
         */
 
+        /* Energy Shields. https://steamcommunity.com/sharedfiles/filedetails/?id=484504816
+         * 
+
+         <TypeId>Refinery</TypeId>
+        <SubtypeId>LargeShipSmallShieldGeneratorBase</SubtypeId>
+        <TypeId>Refinery</TypeId>
+        <SubtypeId>LargeShipLargeShieldGeneratorBase</SubtypeId>
+        <TypeId>Refinery</TypeId>
+        <SubtypeId>SmallShipSmallShieldGeneratorBase</SubtypeId>
+        <TypeId>Refinery</TypeId>
+        <SubtypeId>SmallShipMicroShieldGeneratorBase</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>ShieldCapacitor</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>ShieldFluxCoil</SubtypeId>
+         */
+        private readonly MyDefinitionId LargeShipSmallShieldGeneratorBase = MyVisualScriptLogicProvider.GetDefinitionId(
+            "Refinery", "LargeShipSmallShieldGeneratorBase");
+        private readonly MyDefinitionId LargeShipLargeShieldGeneratorBase = MyVisualScriptLogicProvider.GetDefinitionId(
+            "Refinery", "LargeShipLargeShieldGeneratorBase");
+        private readonly MyDefinitionId SmallShipSmallShieldGeneratorBase = MyVisualScriptLogicProvider.GetDefinitionId(
+            "Refinery", "SmallShipSmallShieldGeneratorBase");
+        private readonly MyDefinitionId SmallShipMicroShieldGeneratorBase = MyVisualScriptLogicProvider.GetDefinitionId(
+            "Refinery", "SmallShipMicroShieldGeneratorBase");
+        private readonly MyDefinitionId ShieldCapacitor = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "ShieldCapacitor");
+        private readonly MyDefinitionId ShieldFluxCoil = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "ShieldFluxCoil");
+
+
+        /* MOD: Defense Shields - v1.91(3) https://steamcommunity.com/sharedfiles/filedetails/?id=1365616918
+         * 
+         * 
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>DSControlTable</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>DSControlLarge</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>DSControlSmall</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>NPCControlLB</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>NPCControlSB</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>NPCEmitterLB</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>NPCEmitterSB</SubtypeId>
+        <TypeId>OxygenGenerator</TypeId>
+        <SubtypeId>DSSupergen</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>EmitterL</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>EmitterS</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>EmitterST</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>LargeShieldModulator</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>SmallShieldModulator</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>LargeEnhancer</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>SmallEnhancer</SubtypeId>
+          <TypeId>UpgradeModule</TypeId>
+          <SubtypeId>EmitterLA</SubtypeId>
+        <TypeId>UpgradeModule</TypeId>
+        <SubtypeId>EmitterSA</SubtypeId>
+         */
+        private readonly MyDefinitionId DSControlTable = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "DSControlTable");
+        private readonly MyDefinitionId DSControlLarge = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "DSControlLarge");
+        private readonly MyDefinitionId DSControlSmall = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "DSControlSmall");
+        private readonly MyDefinitionId NPCControlLB = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "NPCControlLB");
+        private readonly MyDefinitionId NPCControlSB = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "NPCControlSB");
+        private readonly MyDefinitionId NPCEmitterLB = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "NPCEmitterLB");
+        private readonly MyDefinitionId NPCEmitterSB = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "NPCEmitterSB");
+        private readonly MyDefinitionId DSSupergen = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "DSSupergen");
+        private readonly MyDefinitionId EmitterL = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "EmitterL");
+        private readonly MyDefinitionId EmitterS = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "EmitterS");
+        private readonly MyDefinitionId EmitterST = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "EmitterST");
+        private readonly MyDefinitionId LargeShieldModulator = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "LargeShieldModulator");
+        private readonly MyDefinitionId SmallShieldModulator = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "SmallShieldModulator");
+        private readonly MyDefinitionId LargeEnhancer = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "LargeEnhancer");
+        private readonly MyDefinitionId SmallEnhancer = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "SmallEnhancer");
+        private readonly MyDefinitionId EmitterLA = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "EmitterLA");
+        private readonly MyDefinitionId EmitterSA = MyVisualScriptLogicProvider.GetDefinitionId(
+            "UpgradeModule", "EmitterSA");
+
+        /* MOD (2020 Update!) Star Wars Weapons https://steamcommunity.com/sharedfiles/filedetails/?id=598138548
+         * 
+         * 
+         * 
+         * 
+         *
+        
+        *Stationary Large Ship Heavy Turbolasers + Ammo
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Heavy_Clone_Turbolaser</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Heavy_Rebel_Cannon_Large</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Heavy_Red_Turbolaser</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Heavy_Turbolaser</SubtypeId>
+        
+        
+        *Stationary Large Ship Mega Laser Cannons + Ammo
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Large_AAT_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Large_ATAT_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Large_Blue_SW_Starship_Laser_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Large_Falcon_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Large_Green_SW_Starship_Laser_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Large_LAAT_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Large_Red_SW_Starship_Laser_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Large_Slave_1_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Large_Vulture_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+	    <SubtypeId>Large_XWing_Cannon</SubtypeId>
+       
+        
+        *Stationary Other + Ammo
+        <TypeId>SmallGatlingGun</TypeId>
+	    <SubtypeId>CIS_Flak_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>CIS_Flak_Cannon_Small</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Clone_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Clone_Flak_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Clone_Flak_Cannon_Small</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+		<SubtypeId>Death_Star_Explosive_Superlaser</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+		<SubtypeId>Death_Star_Superlaser</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Green_Rotary_Blaster_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Hypervelocity_Gun</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Imperial_Flak_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+		<SubtypeId>Imperial_Flak_Cannon_Small</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+        <SubtypeId>LAAT_Beam</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Proton_Beam</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Red_Rotary_Blaster_Cannon</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+		<SubtypeId>SPHA_Weapon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>TIE_Cannon</SubtypeId>
+        
+
+        *Stationary Small Ship Laser Cannons + Ammo
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>AAT_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>ATAT_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Blue_SW_Starship_Laser_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Falcon_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Green_SW_Starship_Laser_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>LAAT_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Red_SW_Starship_Laser_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Slave_1_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Vulture_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>XWing_Cannon</SubtypeId>
+        
+
+        *Stationary Small Ship Light Turbolasers + Ammo
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Clone_Turbolaser</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Heavy_Rebel_Cannon</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Red_Turbolaser</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Turbolaser</SubtypeId>
+
+        
+        *Stationary Small Ship Mounted Blasters + Ammo
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>DC15A_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>DC15s</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>DC17m</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>DC17m_Sniper</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Droideka_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>E5_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>E11_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>ELG-3A_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Han_Solo_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Heavy_Blaster</SubtypeId>
+        <TypeId>SmallGatlingGun</TypeId>
+        <SubtypeId>Westar_Blaster</SubtypeId>
+       
+            
+        *Stationary Torpedo Missile Launchers + Ammo
+        <TypeId>SmallMissileLauncher</TypeId>
+        <SubtypeId>Heavy_Concussion_Missile</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+        <SubtypeId>Heavy_Energy_Torpedo</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+        <SubtypeId>Large_Compact_Concussion_Missile</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+        <SubtypeId>Large_Compact_Proton_Torpedo</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+        <SubtypeId>Small_Compact_Concussion_Missile</SubtypeId>
+        <TypeId>SmallMissileLauncher</TypeId>
+        <SubtypeId>Small_Compact_Proton_Torpedo</SubtypeId>
+
+           
+         *Turret Large Ship Heavy Turbolasers
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Heavy_Clone_Turbolaser_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Heavy_Rebel_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Heavy_Red_Turbolaser_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Heavy_Turbolaser_Turret</SubtypeId>
+         
+         *Turret Large Ship Light Turbolasers
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Light_Clone_Turbolaser_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Light_Heavy_Rebel_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Light_Red_Turbolaser_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Light_Turbolaser_Turret</SubtypeId>
+         
+         *Turret Large Ship Mega Laser Cannons
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>AAT_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>ATAT_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Blue_SW_Starship_Laser_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Falcon_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Green_SW_Starship_Laser_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>LAAT_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Red_SW_Starship_Laser_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Slave_1_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>TIE_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Vulture_Cannon_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>XWing_Cannon_Large_Turret</SubtypeId>
+         
+            *Turret Other
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>CIS_Flak_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>CIS_Flak_Cannon_Light_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>CIS_Flak_Cannon_Small_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Clone_Blaster_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Clone_Flak_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Clone_Flak_Cannon_Light_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Clone_Flak_Cannon_Small_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Green_Rotary_Blaster_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Hypervelocity_Gun_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Imperial_Flak_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Imperial_Flak_Cannon_Light_Large_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Imperial_Flak_Cannon_Small_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Large_Clone_Blaster_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Large_Green_Rotary_Blaster_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Large_Red_Rotary_Blaster_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Light_Proton_Beam_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Red_Rotary_Blaster_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Proton_Beam_Turret</SubtypeId>
+
+            *Turret Small Ship Lasers
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>AAT_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>ATAT_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Blue_SW_Starship_Laser_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Falcon_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Green_SW_Starship_Laser_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>LAAT_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Red_SW_Starship_Laser_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Slave_1_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>TIE_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Vulture_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>XWing_Cannon_Turret</SubtypeId>
+            
+         
+            *Light Turbolasers
+            Clone Turbolasers Turrets
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Clone_Turbolaser_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Heavy_Rebel_Cannon_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Red_Turbolaser_Turret</SubtypeId>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Turbolaser_Turret</SubtypeId>
+
+
+
+         *Turret Small Ship Mounted Blasters
+         DC151 Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>DC15A_Blaster_Turret</SubtypeId>
+
+         DC15s Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>DC15s_Turret</SubtypeId>
+
+        DC15m Sniper Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>DC17m_Sniper_Turret</SubtypeId>
+
+        DC17m Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>DC17m_Turret</SubtypeId>
+
+        Droideka Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Droideka_Blaster_Turret</SubtypeId>
+
+        E5 Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>E5_Blaster_Turret</SubtypeId>
+
+        E11 Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>E11_Blaster_Turret</SubtypeId>
+
+        ELG-3A Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>ELG-3A_Blaster_Turret</SubtypeId>
+
+        Han Solo Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Han_Solo_Blaster_Turret</SubtypeId>
+
+        Heavy Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Heavy_Blaster_Turret</SubtypeId>
+
+        Westar Blaster Turret
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>Westar_Blaster_Turret</SubtypeId>
+
+
+         *Turret Torpedo Missile Launchers
+         Concussion Missle Turrets
+        <TypeId>LargeMissileTurret</TypeId>
+        <SubtypeId>Large_Concussion_Missile_Turret</SubtypeId>
+        Heavy Concussion Missile Turrets
+        <TypeId>LargeMissileTurret</TypeId>
+        <SubtypeId>Heavy_Concussion_Missile_Turret</SubtypeId>
+
+        Heavy Energy Torpedo
+        <TypeId>LargeMissileTurret</TypeId>
+        <SubtypeId>Heavy_Energy_Torpedo_Turret</SubtypeId>
+
+        Proton Torpedo
+        <TypeId>LargeMissileTurret</TypeId>
+        <SubtypeId>Large_Proton_Torpedo_Turret</SubtypeId>
+
+         Small Concussion Turret
+        <TypeId>LargeMissileTurret</TypeId>
+        <SubtypeId>Small_Concussion_Missile_Turret</SubtypeId>
+
+         Small Torpedo Turret
+        <TypeId>LargeMissileTurret</TypeId>
+        <SubtypeId>Small_Proton_Torpedo_Turret</SubtypeId>
+
+          */
+        private readonly MyDefinitionId Heavy_Clone_Turbolaser = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Heavy_Clone_Turbolaser");
+        private readonly MyDefinitionId Heavy_Rebel_Cannon_Large = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Heavy_Rebel_Cannon_Large");
+        private readonly MyDefinitionId Heavy_Red_Turbolaser = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Heavy_Red_Turbolaser");
+        private readonly MyDefinitionId Heavy_Turbolaser = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Heavy_Turbolaser");
+
+        private readonly MyDefinitionId Large_AAT_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_AAT_Cannon");
+        private readonly MyDefinitionId Large_ATAT_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_ATAT_Cannon");
+        private readonly MyDefinitionId Large_Blue_SW_Starship_Laser_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_Blue_SW_Starship_Laser_Cannon");
+        private readonly MyDefinitionId Large_Falcon_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_Falcon_Cannon");
+        private readonly MyDefinitionId Large_Green_SW_Starship_Laser_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_Green_SW_Starship_Laser_Cannon");
+        private readonly MyDefinitionId Large_LAAT_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_LAAT_Cannon");
+        private readonly MyDefinitionId Large_Red_SW_Starship_Laser_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_Red_SW_Starship_Laser_Cannon");
+        private readonly MyDefinitionId Large_Slave_1_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_Slave_1_Cannon");
+        private readonly MyDefinitionId Large_Vulture_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_Vulture_Cannon");
+        private readonly MyDefinitionId Large_XWing_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+            "SmallGatlingGun", "Large_XWing_Cannon");
+
+        private readonly MyDefinitionId CIS_Flak_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "CIS_Flak_Cannon");
+        private readonly MyDefinitionId CIS_Flak_Cannon_Small = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "CIS_Flak_Cannon_Small");
+        private readonly MyDefinitionId Clone_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Clone_Blaster");
+        private readonly MyDefinitionId Clone_Flak_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Clone_Flak_Cannon");
+        private readonly MyDefinitionId Clone_Flak_Cannon_Small = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Clone_Flak_Cannon_Small");
+        private readonly MyDefinitionId Death_Star_Explosive_Superlaser = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Death_Star_Explosive_Superlaser");
+        private readonly MyDefinitionId Death_Star_Superlaser = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Death_Star_Superlaser");
+        private readonly MyDefinitionId Green_Rotary_Blaster_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Green_Rotary_Blaster_Cannon");
+        private readonly MyDefinitionId Hypervelocity_Gun = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Hypervelocity_Gun");
+        private readonly MyDefinitionId Imperial_Flak_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Imperial_Flak_Cannon");
+        private readonly MyDefinitionId Imperial_Flak_Cannon_Small = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Imperial_Flak_Cannon_Small");
+        private readonly MyDefinitionId LAAT_Beam = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "LAAT_Beam");
+        private readonly MyDefinitionId Proton_Beam = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Proton_Beam");
+        private readonly MyDefinitionId SPHA_Weapon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "SPHA_Weapon");
+        private readonly MyDefinitionId TIE_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "TIE_Cannon");
+
+        private readonly MyDefinitionId AAT_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "AAT_Cannon");
+        private readonly MyDefinitionId ATAT_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "ATAT_Cannon");
+        private readonly MyDefinitionId Blue_SW_Starship_Laser_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Blue_SW_Starship_Laser_Cannon");
+        private readonly MyDefinitionId Falcon_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Falcon_Cannon");
+        private readonly MyDefinitionId Green_SW_Starship_Laser_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Green_SW_Starship_Laser_Cannon");
+        private readonly MyDefinitionId LAAT_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "LAAT_Cannon");
+        private readonly MyDefinitionId Red_SW_Starship_Laser_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Red_SW_Starship_Laser_Cannon");
+        private readonly MyDefinitionId Slave_1_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Slave_1_Cannon");
+        private readonly MyDefinitionId Vulture_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Vulture_Cannon");
+        private readonly MyDefinitionId XWing_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "XWing_Cannon");
+
+        private readonly MyDefinitionId Clone_Turbolaser = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Clone_Turbolaser");
+        private readonly MyDefinitionId Heavy_Rebel_Cannon = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Heavy_Rebel_Cannon");
+        private readonly MyDefinitionId Red_Turbolaser = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Red_Turbolaser");
+        private readonly MyDefinitionId Turbolaser = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Turbolaser");
+
+        private readonly MyDefinitionId DC15A_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "DC15A_Blaster");
+        private readonly MyDefinitionId DC15s = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "DC15s");
+        private readonly MyDefinitionId DC17m = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "DC17m");
+        private readonly MyDefinitionId DC17m_Sniper = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "DC17m_Sniper");
+        private readonly MyDefinitionId Droideka_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Droideka_Blaster");
+        private readonly MyDefinitionId E5_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "E5_Blaster");
+        private readonly MyDefinitionId E11_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "E11_Blaster");
+        private readonly MyDefinitionId ELG3A_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "ELG-3A_Blaster");
+        private readonly MyDefinitionId Han_Solo_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Han_Solo_Blaster");
+        private readonly MyDefinitionId Heavy_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Heavy_Blaster");
+        private readonly MyDefinitionId Westar_Blaster = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallGatlingGun", "Westar_Blaster");
+
+        private readonly MyDefinitionId Heavy_Concussion_Missile = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Heavy_Concussion_Missile");
+        private readonly MyDefinitionId Heavy_Energy_Torpedo = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Heavy_Energy_Torpedo");
+        private readonly MyDefinitionId Large_Compact_Concussion_Missile = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Large_Compact_Concussion_Missile");
+        private readonly MyDefinitionId Large_Compact_Proton_Torpedo = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Large_Compact_Proton_Torpedo");
+        private readonly MyDefinitionId Small_Compact_Concussion_Missile = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Small_Compact_Concussion_Missile");
+        private readonly MyDefinitionId Small_Compact_Proton_Torpedo = MyVisualScriptLogicProvider.GetDefinitionId(
+           "SmallMissileLauncher", "Small_Compact_Proton_Torpedo");
+
+        private readonly MyDefinitionId Heavy_Clone_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Heavy_Clone_Turbolaser_Turret");
+        private readonly MyDefinitionId Heavy_Rebel_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Heavy_Rebel_Cannon_Large_Turret");
+        private readonly MyDefinitionId Heavy_Red_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Heavy_Red_Turbolaser_Turret");
+        private readonly MyDefinitionId Heavy_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Heavy_Turbolaser_Turret");
+
+        private readonly MyDefinitionId Light_Clone_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Light_Clone_Turbolaser_Turret");
+        private readonly MyDefinitionId Light_Heavy_Rebel_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Light_Heavy_Rebel_Cannon_Turret");
+        private readonly MyDefinitionId Light_Red_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Light_Red_Turbolaser_Turret");
+        private readonly MyDefinitionId Light_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Light_Turbolaser_Turret");
+
+        private readonly MyDefinitionId AAT_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "AAT_Cannon_Large_Turret");
+        private readonly MyDefinitionId ATAT_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "ATAT_Cannon_Large_Turret");
+        private readonly MyDefinitionId Blue_SW_Starship_Laser_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Blue_SW_Starship_Laser_Cannon_Large_Turret");
+        private readonly MyDefinitionId Falcon_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Falcon_Cannon_Large_Turret");
+        private readonly MyDefinitionId Green_SW_Starship_Laser_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Green_SW_Starship_Laser_Cannon_Large_Turret");
+        private readonly MyDefinitionId LAAT_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "LAAT_Cannon_Large_Turret");
+        private readonly MyDefinitionId Red_SW_Starship_Laser_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Red_SW_Starship_Laser_Cannon_Large_Turret");
+        private readonly MyDefinitionId Slave_1_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Slave_1_Cannon_Large_Turret");
+        private readonly MyDefinitionId TIE_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "TIE_Cannon_Large_Turret");
+        private readonly MyDefinitionId Vulture_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Vulture_Cannon_Large_Turret");
+        private readonly MyDefinitionId XWing_Cannon_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "XWing_Cannon_Large_Turret");
+
+        private readonly MyDefinitionId CIS_Flak_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "CIS_Flak_Cannon_Turret");
+        private readonly MyDefinitionId CIS_Flak_Cannon_Light_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "CIS_Flak_Cannon_Light_Large_Turret");
+        private readonly MyDefinitionId CIS_Flak_Cannon_Small_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "CIS_Flak_Cannon_Small_Turret");
+        private readonly MyDefinitionId Clone_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Clone_Blaster_Turret");
+        private readonly MyDefinitionId Clone_Flak_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Clone_Flak_Cannon_Turret");
+        private readonly MyDefinitionId Clone_Flak_Cannon_Light_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Clone_Flak_Cannon_Light_Large_Turret");
+        private readonly MyDefinitionId Clone_Flak_Cannon_Small_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Clone_Flak_Cannon_Small_Turret");
+        private readonly MyDefinitionId Green_Rotary_Blaster_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Green_Rotary_Blaster_Cannon_Turret");
+        private readonly MyDefinitionId Hypervelocity_Gun_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Hypervelocity_Gun_Turret");
+        private readonly MyDefinitionId Imperial_Flak_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Imperial_Flak_Cannon_Turret");
+        private readonly MyDefinitionId Imperial_Flak_Cannon_Light_Large_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Imperial_Flak_Cannon_Light_Large_Turret");
+        private readonly MyDefinitionId Imperial_Flak_Cannon_Small_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Imperial_Flak_Cannon_Small_Turret");
+        private readonly MyDefinitionId Large_Clone_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Large_Clone_Blaster_Turret");
+        private readonly MyDefinitionId Large_Green_Rotary_Blaster_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Large_Green_Rotary_Blaster_Cannon_Turret");
+        private readonly MyDefinitionId Large_Red_Rotary_Blaster_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Large_Red_Rotary_Blaster_Cannon_Turret");
+        private readonly MyDefinitionId Light_Proton_Beam_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Light_Proton_Beam_Turret");
+        private readonly MyDefinitionId Red_Rotary_Blaster_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Red_Rotary_Blaster_Cannon_Turret");
+        private readonly MyDefinitionId Proton_Beam_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Proton_Beam_Turret");
+
+        private readonly MyDefinitionId AAT_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "AAT_Cannon_Turret");
+        private readonly MyDefinitionId ATAT_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "ATAT_Cannon_Turret");
+        private readonly MyDefinitionId Blue_SW_Starship_Laser_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Blue_SW_Starship_Laser_Cannon_Turret");
+        private readonly MyDefinitionId Falcon_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Falcon_Cannon_Turret");
+        private readonly MyDefinitionId Green_SW_Starship_Laser_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Green_SW_Starship_Laser_Cannon_Turret");
+        private readonly MyDefinitionId LAAT_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "LAAT_Cannon_Turret");
+        private readonly MyDefinitionId Red_SW_Starship_Laser_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Red_SW_Starship_Laser_Cannon_Turret");
+        private readonly MyDefinitionId Slave_1_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Slave_1_Cannon_Turret");
+        private readonly MyDefinitionId TIE_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "TIE_Cannon_Turret");
+        private readonly MyDefinitionId Vulture_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Vulture_Cannon_Turret");
+        private readonly MyDefinitionId XWing_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "XWing_Cannon_Turret");
+
+        private readonly MyDefinitionId Clone_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Clone_Turbolaser_Turret");
+        private readonly MyDefinitionId Heavy_Rebel_Cannon_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Heavy_Rebel_Cannon_Turret");
+        private readonly MyDefinitionId Red_Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Red_Turbolaser_Turret");
+        private readonly MyDefinitionId Turbolaser_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Turbolaser_Turret");
+
+        private readonly MyDefinitionId DC15A_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "DC15A_Blaster_Turret");
+
+        private readonly MyDefinitionId DC15s_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "DC15s_Turret");
+
+        private readonly MyDefinitionId DC17m_Sniper_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "DC17m_Sniper_Turret");
+
+        private readonly MyDefinitionId DC17m_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "DC17m_Turret");
+
+        private readonly MyDefinitionId Droideka_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Droideka_Blaster_Turret");
+
+        private readonly MyDefinitionId E5_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "E5_Blaster_Turret");
+
+        private readonly MyDefinitionId E11_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "E11_Blaster_Turret");
+
+        private readonly MyDefinitionId ELG3A_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "ELG-3A_Blaster_Turret");
+
+        private readonly MyDefinitionId Han_Solo_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Han_Solo_Blaster_Turret");
+
+        private readonly MyDefinitionId Heavy_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Heavy_Blaster_Turret");
+
+        private readonly MyDefinitionId Westar_Blaster_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeGatlingTurret", "Westar_Blaster_Turret");
+
+        private readonly MyDefinitionId Large_Concussion_Missile_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeMissileTurret", "Large_Concussion_Missile_Turret");
+        private readonly MyDefinitionId Heavy_Concussion_Missile_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeMissileTurret", "Heavy_Concussion_Missile_Turret");
+
+        private readonly MyDefinitionId Heavy_Energy_Torpedo_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeMissileTurret", "Heavy_Energy_Torpedo_Turret");
+
+        private readonly MyDefinitionId Large_Proton_Torpedo_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeMissileTurret", "Large_Proton_Torpedo_Turret");
+
+        private readonly MyDefinitionId Small_Concussion_Missile_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeMissileTurret", "Small_Concussion_Missile_Turret");
+
+        private readonly MyDefinitionId Small_Proton_Torpedo_Turret = MyVisualScriptLogicProvider.GetDefinitionId(
+           "LargeMissileTurret", "Small_Proton_Torpedo_Turret");
+
+
         private readonly Dictionary<TechGroup, HashSet<MyDefinitionId>> techsForGroup =
-        new Dictionary<TechGroup, HashSet<MyDefinitionId>>();
+new Dictionary<TechGroup, HashSet<MyDefinitionId>>();
 
-        private readonly QueuedAudioSystem audioSystem;
+private readonly QueuedAudioSystem audioSystem;
 
-        internal ResearchControl(QueuedAudioSystem audioSystem)
-        {
-            this.audioSystem = audioSystem;
-        }
+internal ResearchControl(QueuedAudioSystem audioSystem)
+{
+this.audioSystem = audioSystem;
+}
 
-        internal HashSet<TechGroup> UnlockedTechs { get; set; } = new HashSet<TechGroup>();
+internal HashSet<TechGroup> UnlockedTechs { get; set; } = new HashSet<TechGroup>();
 
         internal void InitResearchRestrictions()
         {
@@ -743,302 +1477,462 @@ SubtyepID=SmallHydrogenTankSmall
                 MyVisualScriptLogicProvider.ResearchListClear();
             }
 
-            NeedsResearch(largeMissileTurret, TechGroup.Rockets);
-            NeedsResearch(smallMissileTurret, TechGroup.Rockets);
-            NeedsResearch(rocketLauncher, TechGroup.Rockets);
-            NeedsResearch(largeRocketLauncher, TechGroup.Rockets);
-            NeedsResearch(smallReloadableRocketLauncher, TechGroup.Rockets);
+            if (bVanillaBlocks)
+            {
+                NeedsResearch(largeMissileTurret, TechGroup.Rockets);
+                NeedsResearch(smallMissileTurret, TechGroup.Rockets);
+                NeedsResearch(rocketLauncher, TechGroup.Rockets);
+                NeedsResearch(largeRocketLauncher, TechGroup.Rockets);
+                NeedsResearch(smallReloadableRocketLauncher, TechGroup.Rockets);
 
-            NeedsResearch(atmoThrusterSmallShipSmall, TechGroup.AtmoThrusters);
-            NeedsResearch(atmoThrusterSmallShipLarge, TechGroup.AtmoThrusters);
-            NeedsResearch(atmoThrusterLargeShipSmall, TechGroup.AtmoThrusters);
-            NeedsResearch(atmoThrusterLargeShipLarge, TechGroup.AtmoThrusters);
+                NeedsResearch(atmoThrusterSmallShipSmall, TechGroup.AtmoThrusters);
+                NeedsResearch(atmoThrusterSmallShipLarge, TechGroup.AtmoThrusters);
+                NeedsResearch(atmoThrusterLargeShipSmall, TechGroup.AtmoThrusters);
+                NeedsResearch(atmoThrusterLargeShipLarge, TechGroup.AtmoThrusters);
 
-            // V1.195 DLC
-            NeedsResearch(SmallBlockSmallAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
-            NeedsResearch(SmallBlockLargeAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
-            NeedsResearch(LargeBlockSmallAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
-            NeedsResearch(LargeBlockLargeAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+                // V1.195 DLC
+                NeedsResearch(SmallBlockSmallAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+                NeedsResearch(SmallBlockLargeAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+                NeedsResearch(LargeBlockSmallAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
+                NeedsResearch(LargeBlockLargeAtmosphericThrustSciFi, TechGroup.AtmoThrusters);
 
-            // Power
-            NeedsResearch(WindTurbineLarge, TechGroup.WindTurbines); // 1.194
+                // Power
+                NeedsResearch(WindTurbineLarge, TechGroup.WindTurbines); // 1.194
 
-            NeedsResearch(LargeBlockSolarPanel, TechGroup.SolarPanels);
-            NeedsResearch(SmallBlockSolarPanel, TechGroup.SolarPanels);
+                NeedsResearch(LargeBlockSolarPanel, TechGroup.SolarPanels);
+                NeedsResearch(SmallBlockSolarPanel, TechGroup.SolarPanels);
 
-            NeedsResearch(SmallBattery, TechGroup.Batteries);
-            NeedsResearch(SmallBlockBatteryBlock, TechGroup.Batteries);
-            NeedsResearch(LargeBlockBatteryBlock, TechGroup.Batteries);
+                NeedsResearch(SmallBattery, TechGroup.Batteries);
+                NeedsResearch(SmallBlockBatteryBlock, TechGroup.Batteries);
+                NeedsResearch(LargeBlockBatteryBlock, TechGroup.Batteries);
 
-            NeedsResearch(LargeBlockLargeGenerator, TechGroup.LargeReactors);
-            NeedsResearch(LargeBlockSmallGenerator, TechGroup.SmallReactors);
-            NeedsResearch(SmallBlockSmallGenerator, TechGroup.SmallReactors);
-            NeedsResearch(SmallBlockLargeGenerator, TechGroup.LargeReactors);
+                NeedsResearch(LargeBlockLargeGenerator, TechGroup.LargeReactors);
+                NeedsResearch(LargeBlockSmallGenerator, TechGroup.SmallReactors);
+                NeedsResearch(SmallBlockSmallGenerator, TechGroup.SmallReactors);
+                NeedsResearch(SmallBlockLargeGenerator, TechGroup.LargeReactors);
 
-            NeedsResearch(EngineLarge, TechGroup.HydrogenEngines);
-            NeedsResearch(EngineSmall, TechGroup.HydrogenEngines);
+                NeedsResearch(EngineLarge, TechGroup.HydrogenEngines);
+                NeedsResearch(EngineSmall, TechGroup.HydrogenEngines);
 
-            NeedsResearch(oxygenFarm, TechGroup.OxygenFarm);
+                NeedsResearch(oxygenFarm, TechGroup.OxygenFarm);
 
-            NeedsResearch(oxygenGeneratorLarge, TechGroup.OxygenGenerators);
-            NeedsResearch(oxygenGeneratorSmall, TechGroup.OxygenGenerators);
+                NeedsResearch(oxygenGeneratorLarge, TechGroup.OxygenGenerators);
+                NeedsResearch(oxygenGeneratorSmall, TechGroup.OxygenGenerators);
 
-            NeedsResearch(oxygenTankLarge, TechGroup.OxygenStorage);
-            NeedsResearch(oxygenTankSmall, TechGroup.OxygenStorage);
+                NeedsResearch(oxygenTankLarge, TechGroup.OxygenStorage);
+                NeedsResearch(oxygenTankSmall, TechGroup.OxygenStorage);
 
-            NeedsResearch(hydrogenTankLarge, TechGroup.HydrogenStorage);
-            NeedsResearch(hydrogenTankSmall, TechGroup.HydrogenStorage);
-            NeedsResearch(LargeHydrogenTankSmall, TechGroup.HydrogenStorage);// 1.194
-            NeedsResearch(SmallHydrogenTankSmall, TechGroup.HydrogenStorage);// 1.194
+                NeedsResearch(hydrogenTankLarge, TechGroup.HydrogenStorage);
+                NeedsResearch(hydrogenTankSmall, TechGroup.HydrogenStorage);
+                NeedsResearch(LargeHydrogenTankSmall, TechGroup.HydrogenStorage);// 1.194
+                NeedsResearch(SmallHydrogenTankSmall, TechGroup.HydrogenStorage);// 1.194
 
-            NeedsResearch(SmallGatlingTurret, TechGroup.BasicWeapons);
-            NeedsResearch(SmallRocketLauncherReload, TechGroup.BasicWeapons);
-            NeedsResearch(InteriorTurret, TechGroup.BasicWeapons);
-            NeedsResearch(LargeGatlingTurret, TechGroup.BasicWeapons);
+                NeedsResearch(SmallGatlingTurret, TechGroup.BasicWeapons);
+                NeedsResearch(SmallRocketLauncherReload, TechGroup.BasicWeapons);
+                NeedsResearch(InteriorTurret, TechGroup.BasicWeapons);
+                NeedsResearch(LargeGatlingTurret, TechGroup.BasicWeapons);
 
-            NeedsResearch(LargeBlockArmorBlock, TechGroup.LgLightArmor);
-            NeedsResearch(LargeBlockArmorCorner, TechGroup.LgLightArmor);
-            NeedsResearch(LargeBlockArmorCornerInv, TechGroup.LgLightArmor);
-            NeedsResearch(LargeRoundArmor_Slope, TechGroup.LgLightArmor);
-            NeedsResearch(LargeRoundArmor_Corner, TechGroup.LgLightArmor);
-            NeedsResearch(LargeRoundArmor_CornerInv, TechGroup.LgLightArmor);
-            NeedsResearch(LargeHalfArmorBlock, TechGroup.LgLightArmor);
-            NeedsResearch(LargeHalfSlopeArmorBlock, TechGroup.LgLightArmor);
+                NeedsResearch(LargeBlockArmorBlock, TechGroup.LgLightArmor);
+                NeedsResearch(LargeBlockArmorCorner, TechGroup.LgLightArmor);
+                NeedsResearch(LargeBlockArmorCornerInv, TechGroup.LgLightArmor);
+                NeedsResearch(LargeRoundArmor_Slope, TechGroup.LgLightArmor);
+                NeedsResearch(LargeRoundArmor_Corner, TechGroup.LgLightArmor);
+                NeedsResearch(LargeRoundArmor_CornerInv, TechGroup.LgLightArmor);
+                NeedsResearch(LargeHalfArmorBlock, TechGroup.LgLightArmor);
+                NeedsResearch(LargeHalfSlopeArmorBlock, TechGroup.LgLightArmor);
 
-            NeedsResearch(LargeHeavyBlockArmorBlock, TechGroup.LgHeavyArmor);
-            NeedsResearch(LargeHeavyBlockArmorSlope, TechGroup.LgHeavyArmor);
-            NeedsResearch(LargeHeavyBlockArmorCorner, TechGroup.LgHeavyArmor);
-            NeedsResearch(LargeHeavyBlockArmorCornerInv, TechGroup.LgHeavyArmor);
-            NeedsResearch(LargeHeavyHalfArmorBlock, TechGroup.LgHeavyArmor);
-            NeedsResearch(LargeHeavyHalfSlopeArmorBlock, TechGroup.LgHeavyArmor);
+                NeedsResearch(LargeHeavyBlockArmorBlock, TechGroup.LgHeavyArmor);
+                NeedsResearch(LargeHeavyBlockArmorSlope, TechGroup.LgHeavyArmor);
+                NeedsResearch(LargeHeavyBlockArmorCorner, TechGroup.LgHeavyArmor);
+                NeedsResearch(LargeHeavyBlockArmorCornerInv, TechGroup.LgHeavyArmor);
+                NeedsResearch(LargeHeavyHalfArmorBlock, TechGroup.LgHeavyArmor);
+                NeedsResearch(LargeHeavyHalfSlopeArmorBlock, TechGroup.LgHeavyArmor);
 
-            NeedsResearch(ionThrusterSmallShipSmall, TechGroup.IonThrusters);
-            NeedsResearch(ionThrusterSmallShipLarge, TechGroup.IonThrusters);
-            NeedsResearch(ionThrusterLargeShipSmall, TechGroup.IonThrusters);
-            NeedsResearch(ionThrusterLargeShipLarge, TechGroup.IonThrusters);
+                NeedsResearch(ionThrusterSmallShipSmall, TechGroup.IonThrusters);
+                NeedsResearch(ionThrusterSmallShipLarge, TechGroup.IonThrusters);
+                NeedsResearch(ionThrusterLargeShipSmall, TechGroup.IonThrusters);
+                NeedsResearch(ionThrusterLargeShipLarge, TechGroup.IonThrusters);
 
-            NeedsResearch(hydroThrusterSmallShipSmall, TechGroup.HydrogenThrusters);
-            NeedsResearch(hydroThrusterSmallShipLarge, TechGroup.HydrogenThrusters);
-            NeedsResearch(hydroThrusterLargeShipSmall, TechGroup.HydrogenThrusters);
-            NeedsResearch(hydroThrusterLargeShipLarge, TechGroup.HydrogenThrusters);
+                NeedsResearch(hydroThrusterSmallShipSmall, TechGroup.HydrogenThrusters);
+                NeedsResearch(hydroThrusterSmallShipLarge, TechGroup.HydrogenThrusters);
+                NeedsResearch(hydroThrusterLargeShipSmall, TechGroup.HydrogenThrusters);
+                NeedsResearch(hydroThrusterLargeShipLarge, TechGroup.HydrogenThrusters);
 
-            NeedsResearch(refinery, TechGroup.AdvancedRefineries);
-            NeedsResearch(blastFurnace, TechGroup.BasicRefineries);
-            NeedsResearch(BasicAssembler, TechGroup.BasicAssemblers);
+                NeedsResearch(refinery, TechGroup.AdvancedRefineries);
+                NeedsResearch(blastFurnace, TechGroup.BasicRefineries);
+                NeedsResearch(BasicAssembler, TechGroup.BasicAssemblers);
 
-            NeedsResearch(jumpDrive, TechGroup.JumpDrives);
+                NeedsResearch(jumpDrive, TechGroup.JumpDrives);
 
-            NeedsResearch(projectorLarge, TechGroup.Projectors);
-            NeedsResearch(projectorSmall, TechGroup.Projectors);
+                NeedsResearch(projectorLarge, TechGroup.Projectors);
+                NeedsResearch(projectorSmall, TechGroup.Projectors);
 
-            NeedsResearch(SkLarge, TechGroup.SurvivalKit);
-            NeedsResearch(SkSmall, TechGroup.SurvivalKit);
+                NeedsResearch(SkLarge, TechGroup.SurvivalKit);
+                NeedsResearch(SkSmall, TechGroup.SurvivalKit);
 
-            NeedsResearch(LargeBlockGyro, TechGroup.Gyros);
-            NeedsResearch(SmallBlockGyro, TechGroup.Gyros);
+                NeedsResearch(LargeBlockGyro, TechGroup.Gyros);
+                NeedsResearch(SmallBlockGyro, TechGroup.Gyros);
 
-            // detection
-            NeedsResearch(radioAntennaLarge, TechGroup.RadioAntennas);
-            NeedsResearch(radioAntennaSmall, TechGroup.RadioAntennas);
-            NeedsResearch(LargeBlockRadioAntennaDish, TechGroup.RadioAntennas);
+                // detection
+                NeedsResearch(radioAntennaLarge, TechGroup.RadioAntennas);
+                NeedsResearch(radioAntennaSmall, TechGroup.RadioAntennas);
+                NeedsResearch(LargeBlockRadioAntennaDish, TechGroup.RadioAntennas);
 
-            NeedsResearch(LargeBlockLaserAntenna, TechGroup.LaserAntennas);
-            NeedsResearch(SmallBlockLaserAntenna, TechGroup.LaserAntennas);
+                NeedsResearch(LargeBlockLaserAntenna, TechGroup.LaserAntennas);
+                NeedsResearch(SmallBlockLaserAntenna, TechGroup.LaserAntennas);
 
-            NeedsResearch(LargeBlockBeacon, TechGroup.Beacons);
-            NeedsResearch(SmallBlockBeacon, TechGroup.Beacons);
+                NeedsResearch(LargeBlockBeacon, TechGroup.Beacons);
+                NeedsResearch(SmallBlockBeacon, TechGroup.Beacons);
 
-            NeedsResearch(LargeBlockSensor, TechGroup.Sensors);
-            NeedsResearch(SmallBlockSensor, TechGroup.Sensors);
-            NeedsResearch(LargeCameraBlock, TechGroup.Cameras);
-            NeedsResearch(SmallCameraBlock, TechGroup.Cameras);
+                NeedsResearch(LargeBlockSensor, TechGroup.Sensors);
+                NeedsResearch(SmallBlockSensor, TechGroup.Sensors);
+                NeedsResearch(LargeCameraBlock, TechGroup.Cameras);
+                NeedsResearch(SmallCameraBlock, TechGroup.Cameras);
 
-            // gravity
-            NeedsResearch(GravityGenerator, TechGroup.GravityGens);
-            NeedsResearch(GravityGeneratorSphere, TechGroup.GravityGens);
+                // gravity
+                NeedsResearch(GravityGenerator, TechGroup.GravityGens);
+                NeedsResearch(GravityGeneratorSphere, TechGroup.GravityGens);
 
-            NeedsResearch(SpaceBallLarge, TechGroup.ArtificialMass);
-            NeedsResearch(SpaceBallSmall, TechGroup.ArtificialMass);
-            NeedsResearch(VirtualMassLarge, TechGroup.ArtificialMass);
-            NeedsResearch(VirtualMassSmall, TechGroup.ArtificialMass);
+                NeedsResearch(SpaceBallLarge, TechGroup.ArtificialMass);
+                NeedsResearch(SpaceBallSmall, TechGroup.ArtificialMass);
+                NeedsResearch(VirtualMassLarge, TechGroup.ArtificialMass);
+                NeedsResearch(VirtualMassSmall, TechGroup.ArtificialMass);
 
-            // Programmable Block
-            NeedsResearch(LargeProgrammableBlock, TechGroup.ProgrammableBlock);
+                // Programmable Block
+                NeedsResearch(LargeProgrammableBlock, TechGroup.ProgrammableBlock);
 
-            // V1.192
-            NeedsResearch(SafeZoneBlock, TechGroup.SafeZone);
-            NeedsResearch(StoreBlock, TechGroup.Economy);
-            NeedsResearch(ContractBlock, TechGroup.Economy);
+                // V1.192
+                NeedsResearch(SafeZoneBlock, TechGroup.SafeZone);
+                NeedsResearch(StoreBlock, TechGroup.Economy);
+                NeedsResearch(ContractBlock, TechGroup.Economy);
 
-            // SE 1.192 Economy DLC
-            NeedsResearch(VendingMachine, TechGroup.Economy);
-            NeedsResearch(AtmBlock, TechGroup.Economy);
+                // SE 1.192 Economy DLC
+                NeedsResearch(VendingMachine, TechGroup.Economy);
+                NeedsResearch(AtmBlock, TechGroup.Economy);
 
-            // V1.193
-            NeedsResearch(FoodDispenser, TechGroup.Economy);
+                // V1.193
+                NeedsResearch(FoodDispenser, TechGroup.Economy);
 
-            // V1.195 DLC
-            NeedsResearch(SmallBlockSmallThrustSciFi, TechGroup.IonThrusters);
-            NeedsResearch(SmallBlockLargeThrustSciFi, TechGroup.IonThrusters);
-            NeedsResearch(LargeBlockSmallThrustSciFi, TechGroup.IonThrusters);
-            NeedsResearch(LargeBlockLargeThrustSciFi, TechGroup.IonThrusters);
+                // V1.195 DLC
+                NeedsResearch(SmallBlockSmallThrustSciFi, TechGroup.IonThrusters);
+                NeedsResearch(SmallBlockLargeThrustSciFi, TechGroup.IonThrusters);
+                NeedsResearch(LargeBlockSmallThrustSciFi, TechGroup.IonThrusters);
+                NeedsResearch(LargeBlockLargeThrustSciFi, TechGroup.IonThrusters);
+            }
+            // Energy Shields. https://steamcommunity.com/sharedfiles/filedetails/?id=484504816
+            NeedsResearch(LargeShipSmallShieldGeneratorBase, TechGroup.EnergyShields);
+            NeedsResearch(LargeShipLargeShieldGeneratorBase, TechGroup.EnergyShields);
+            NeedsResearch(SmallShipSmallShieldGeneratorBase, TechGroup.EnergyShields);
+            NeedsResearch(SmallShipMicroShieldGeneratorBase, TechGroup.EnergyShields);
+            NeedsResearch(ShieldCapacitor, TechGroup.EnergyShields);
+            NeedsResearch(ShieldFluxCoil, TechGroup.EnergyShields);
+
+            // MOD: Defense Shields - v1.91(3) https://steamcommunity.com/sharedfiles/filedetails/?id=1365616918
+            NeedsResearch(DSControlTable, TechGroup.DefenseShields);
+            NeedsResearch(DSControlLarge, TechGroup.DefenseShields);
+            NeedsResearch(DSControlSmall, TechGroup.DefenseShields);
+            NeedsResearch(NPCControlLB, TechGroup.DefenseShields);
+            NeedsResearch(NPCControlSB, TechGroup.DefenseShields);
+            NeedsResearch(NPCEmitterLB, TechGroup.DefenseShields);
+            NeedsResearch(NPCEmitterSB, TechGroup.DefenseShields);
+            NeedsResearch(DSSupergen, TechGroup.DefenseShields);
+            NeedsResearch(EmitterL, TechGroup.DefenseShields);
+            NeedsResearch(EmitterS, TechGroup.DefenseShields);
+            NeedsResearch(EmitterST, TechGroup.DefenseShields);
+            NeedsResearch(LargeShieldModulator, TechGroup.DefenseShields);
+            NeedsResearch(SmallShieldModulator, TechGroup.DefenseShields);
+            NeedsResearch(LargeEnhancer, TechGroup.DefenseShields);
+            NeedsResearch(SmallEnhancer, TechGroup.DefenseShields);
+            NeedsResearch(EmitterLA, TechGroup.DefenseShields);
+            NeedsResearch(EmitterSA, TechGroup.DefenseShields);
+
+            // MOD (2020 Update!) Star Wars Weapons https://steamcommunity.com/sharedfiles/filedetails/?id=598138548
+            NeedsResearch(Heavy_Clone_Turbolaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Rebel_Cannon_Large, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Red_Turbolaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Turbolaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_AAT_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_ATAT_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Blue_SW_Starship_Laser_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Falcon_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Green_SW_Starship_Laser_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_LAAT_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Red_SW_Starship_Laser_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Slave_1_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Vulture_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_XWing_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(CIS_Flak_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(CIS_Flak_Cannon_Small, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Flak_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Flak_Cannon_Small, TechGroup.StarWarsWeapons);
+            NeedsResearch(Death_Star_Explosive_Superlaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(Death_Star_Superlaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(Green_Rotary_Blaster_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Hypervelocity_Gun, TechGroup.StarWarsWeapons);
+            NeedsResearch(Imperial_Flak_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Imperial_Flak_Cannon_Small, TechGroup.StarWarsWeapons);
+            NeedsResearch(LAAT_Beam, TechGroup.StarWarsWeapons);
+            NeedsResearch(Proton_Beam, TechGroup.StarWarsWeapons);
+            NeedsResearch(SPHA_Weapon, TechGroup.StarWarsWeapons);
+            NeedsResearch(TIE_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(AAT_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(ATAT_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Blue_SW_Starship_Laser_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Falcon_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Green_SW_Starship_Laser_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(LAAT_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Red_SW_Starship_Laser_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Slave_1_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Vulture_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(XWing_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Turbolaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Rebel_Cannon, TechGroup.StarWarsWeapons);
+            NeedsResearch(Red_Turbolaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(Turbolaser, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC15A_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC15s, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC17m, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC17m_Sniper, TechGroup.StarWarsWeapons);
+            NeedsResearch(Droideka_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(E5_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(E11_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(ELG3A_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(Han_Solo_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(Westar_Blaster, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Concussion_Missile, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Energy_Torpedo, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Compact_Concussion_Missile, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Compact_Proton_Torpedo, TechGroup.StarWarsWeapons);
+            NeedsResearch(Small_Compact_Concussion_Missile, TechGroup.StarWarsWeapons);
+            NeedsResearch(Small_Compact_Proton_Torpedo, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Clone_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Rebel_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Red_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Light_Clone_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Light_Heavy_Rebel_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Light_Red_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Light_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(AAT_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(ATAT_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Blue_SW_Starship_Laser_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Falcon_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Green_SW_Starship_Laser_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(LAAT_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Red_SW_Starship_Laser_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Slave_1_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(TIE_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Vulture_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(XWing_Cannon_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(CIS_Flak_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(CIS_Flak_Cannon_Light_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(CIS_Flak_Cannon_Small_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Flak_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Flak_Cannon_Light_Large_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Flak_Cannon_Small_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Green_Rotary_Blaster_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Hypervelocity_Gun_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Imperial_Flak_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Imperial_Flak_Cannon_Small_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Clone_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Green_Rotary_Blaster_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Red_Rotary_Blaster_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Light_Proton_Beam_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Red_Rotary_Blaster_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Proton_Beam_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(AAT_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(ATAT_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Blue_SW_Starship_Laser_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Falcon_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Green_SW_Starship_Laser_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(LAAT_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Red_SW_Starship_Laser_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Slave_1_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(TIE_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Vulture_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(XWing_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Clone_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Rebel_Cannon_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Red_Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Turbolaser_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC15A_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC15s_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC17m_Sniper_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(DC17m_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Droideka_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(E5_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(E11_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(ELG3A_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Han_Solo_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Westar_Blaster_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Concussion_Missile_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Concussion_Missile_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Heavy_Energy_Torpedo_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Large_Proton_Torpedo_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Small_Concussion_Missile_Turret, TechGroup.StarWarsWeapons);
+            NeedsResearch(Small_Proton_Torpedo_Turret, TechGroup.StarWarsWeapons);
+
 
         }
         public void AllowUnlockedTechs()
-        {
-            UnlockTechsSilently(0, UnlockedTechs);
-        }
+{
+UnlockTechsSilently(0, UnlockedTechs);
+}
 
-        private void NeedsResearch(MyDefinitionId techDef, TechGroup techgroup)
-        {
-            if (techDef == null) return;
+private void NeedsResearch(MyDefinitionId techDef, TechGroup techgroup)
+{
+if (techDef == null) return;
 
-            MyVisualScriptLogicProvider.ResearchListAddItem(techDef);
+MyVisualScriptLogicProvider.ResearchListAddItem(techDef);
 
-            HashSet<MyDefinitionId> techsInGroup;
-            if (!techsForGroup.TryGetValue(techgroup, out techsInGroup))
-            {
-                techsInGroup = new HashSet<MyDefinitionId>();
-                techsForGroup.Add(techgroup, techsInGroup);
-            }
-            techsInGroup.Add(techDef);
-        }
+HashSet<MyDefinitionId> techsInGroup;
+if (!techsForGroup.TryGetValue(techgroup, out techsInGroup))
+{
+    techsInGroup = new HashSet<MyDefinitionId>();
+    techsForGroup.Add(techgroup, techsInGroup);
+}
+techsInGroup.Add(techDef);
+}
 
-        // Untested
-        public void KeepTechsLocked()
-        {
+// Untested
+public void KeepTechsLocked()
+{
 //            ModLog.Info("KeepTechsLocked()");
 
-            foreach (var techGroup in techsForGroup)
-            {
-                var group = techGroup.Key;
+foreach (var techGroup in techsForGroup)
+{
+    var group = techGroup.Key;
 //                ModLog.Info("KTL: Group=" + group.ToString());
-                if (UnlockedTechs.Contains(group))
-                {
+    if (UnlockedTechs.Contains(group))
+    {
 //                    ModLog.Info(" UNLOCKED");
-                    // OK to unlock
-                    var technologies = techsForGroup[group];
-                    foreach (var technology in technologies)
-                    {
-                        MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); 
-                    }
-                }
-                else
-                {
-//                    ModLog.Info(" LOCKED");
-                    // block should be locked
-                    var technologies = techsForGroup[group];
-                    if (technologies == null)
-                    {
-                        ModLog.Error("No technologies for group: " + techGroup);
-                        continue;
-                    }
-//                    ModLog.Info(" # blocks=" + technologies.Count.ToString());
-                    foreach (var technology in technologies)
-                    {
-                        MyVisualScriptLogicProvider.ResearchListAddItem(technology);
-                    }
-                }
-            }
-        }
-
-        internal void UnlockTechGroupForAllPlayers(TechGroup techGroup)
+        // OK to unlock
+        var technologies = techsForGroup[group];
+        foreach (var technology in technologies)
         {
-            if (UnlockedTechs.Contains(techGroup))
-            {
-                return; // Already unlocked
-            }
-
-            HashSet<MyDefinitionId> technologies;
-            if (!techsForGroup.TryGetValue(techGroup, out technologies))
-            {
-                ModLog.Error("No technologies for group: " + techGroup);
-                return;
-            }
-            var players = new List<IMyPlayer>();
-            MyAPIGateway.Players.GetPlayers(players);
-            foreach (var player in players)
-            {
-                foreach (var technology in technologies)
-                {
-                    if (bNewResearch)
-                        MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); // SE 1.189
-                    else
-                        MyVisualScriptLogicProvider.PlayerResearchUnlock(player.IdentityId, technology);
-                }
-            }
-            UnlockedTechs.Add(techGroup);
-            audioSystem.PlayAudio(GetAudioClipForTechGroup(techGroup));
-        }
-
-        private static AudioClip GetAudioClipForTechGroup(TechGroup techGroup)
-        {
-            switch (techGroup)
-            {
-                case TechGroup.Permabanned:
-                    return AudioClip.AllTechUnlocked;
-                case TechGroup.AtmoThrusters:
-                    return AudioClip.UnlockAtmospherics;
-                case TechGroup.Rockets:
-                    return AudioClip.UnlockedMissiles;
-                case TechGroup.OxygenGenerators:
-                    return AudioClip.OxygenGeneratorUnlocked;
-                case TechGroup.OxygenFarm:
-                    return AudioClip.OxygenFarmUnlocked;
-                case TechGroup.OxygenStorage:
-                    return AudioClip.GasStorageUnlocked;
-                case TechGroup.HydrogenStorage:
-                    return AudioClip.GasStorageUnlocked;
-                case TechGroup.BasicWeapons:
-                    return AudioClip.BasicWeaponsUnlocked;
-                default:
-                    return AudioClip.TechUnlocked;
-            }
-        }
-
-        public void UnlockTechsSilently(long playerId, HashSet<TechGroup> techGroups)
-        {
-            foreach (var techGroup in techGroups)
-            {
-                var technologies = techsForGroup[techGroup];
-                if (technologies == null)
-                {
-                    ModLog.Info("No technologies for group: " + techGroup);
-                    return;
-                }
-
-                foreach (var technology in technologies)
-                {
-
-                    if (bNewResearch)
-                        // unknown: does this work for ALL players?
-                        MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); // SE 1.189
-                    else
-                        MyVisualScriptLogicProvider.PlayerResearchUnlock(playerId, technology);
-                }
-            }
-        }
-
-        public void UnlockTechForJoiningPlayer(long playerId)
-        {
-            foreach (var techGroup in UnlockedTechs)
-            {
-                var technologies = techsForGroup[techGroup];
-                if (technologies == null)
-                {
-                    ModLog.Error("No technologies for group: " + techGroup);
-                    return;
-                }
-
-                foreach (var technology in technologies)
-                {
-                    if (bNewResearch)
-                        MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); // SE 1.189
-                    else
-                        MyVisualScriptLogicProvider.PlayerResearchUnlock(playerId, technology);
-                }
-            }
+            MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); 
         }
     }
+    else
+    {
+//                    ModLog.Info(" LOCKED");
+        // block should be locked
+        var technologies = techsForGroup[group];
+        if (technologies == null)
+        {
+            ModLog.Error("No technologies for group: " + techGroup);
+            continue;
+        }
+//                    ModLog.Info(" # blocks=" + technologies.Count.ToString());
+        foreach (var technology in technologies)
+        {
+            MyVisualScriptLogicProvider.ResearchListAddItem(technology);
+        }
+    }
+}
+}
+
+internal void UnlockTechGroupForAllPlayers(TechGroup techGroup)
+{
+if (UnlockedTechs.Contains(techGroup))
+{
+    return; // Already unlocked
+}
+
+HashSet<MyDefinitionId> technologies;
+if (!techsForGroup.TryGetValue(techGroup, out technologies))
+{
+    ModLog.Error("No technologies for group: " + techGroup);
+    return;
+}
+var players = new List<IMyPlayer>();
+MyAPIGateway.Players.GetPlayers(players);
+foreach (var player in players)
+{
+    foreach (var technology in technologies)
+    {
+        if (bNewResearch)
+            MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); // SE 1.189
+        else
+            MyVisualScriptLogicProvider.PlayerResearchUnlock(player.IdentityId, technology);
+    }
+}
+UnlockedTechs.Add(techGroup);
+audioSystem.PlayAudio(GetAudioClipForTechGroup(techGroup));
+}
+
+private static AudioClip GetAudioClipForTechGroup(TechGroup techGroup)
+{
+switch (techGroup)
+{
+    case TechGroup.Permabanned:
+        return AudioClip.AllTechUnlocked;
+    case TechGroup.AtmoThrusters:
+        return AudioClip.UnlockAtmospherics;
+    case TechGroup.Rockets:
+        return AudioClip.UnlockedMissiles;
+    case TechGroup.OxygenGenerators:
+        return AudioClip.OxygenGeneratorUnlocked;
+    case TechGroup.OxygenFarm:
+        return AudioClip.OxygenFarmUnlocked;
+    case TechGroup.OxygenStorage:
+        return AudioClip.GasStorageUnlocked;
+    case TechGroup.HydrogenStorage:
+        return AudioClip.GasStorageUnlocked;
+    case TechGroup.BasicWeapons:
+        return AudioClip.BasicWeaponsUnlocked;
+    default:
+        return AudioClip.TechUnlocked;
+}
+}
+
+public void UnlockTechsSilently(long playerId, HashSet<TechGroup> techGroups)
+{
+foreach (var techGroup in techGroups)
+{
+    var technologies = techsForGroup[techGroup];
+    if (technologies == null)
+    {
+        ModLog.Info("No technologies for group: " + techGroup);
+        return;
+    }
+
+    foreach (var technology in technologies)
+    {
+
+        if (bNewResearch)
+            // unknown: does this work for ALL players?
+            MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); // SE 1.189
+        else
+            MyVisualScriptLogicProvider.PlayerResearchUnlock(playerId, technology);
+    }
+}
+}
+
+public void UnlockTechForJoiningPlayer(long playerId)
+{
+foreach (var techGroup in UnlockedTechs)
+{
+    var technologies = techsForGroup[techGroup];
+    if (technologies == null)
+    {
+        ModLog.Error("No technologies for group: " + techGroup);
+        return;
+    }
+
+    foreach (var technology in technologies)
+    {
+        if (bNewResearch)
+            MyVisualScriptLogicProvider.ResearchListRemoveItem(technology); // SE 1.189
+        else
+            MyVisualScriptLogicProvider.PlayerResearchUnlock(playerId, technology);
+    }
+}
+}
+}
 }
 
